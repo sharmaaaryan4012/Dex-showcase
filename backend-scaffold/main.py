@@ -28,3 +28,4 @@ async def semantic_search(query: str):
 async def trigger_passive_enrichment():
     """Trigger background job to verify/update contact career data."""
     pass
+
