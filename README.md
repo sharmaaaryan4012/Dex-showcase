@@ -2,11 +2,24 @@
 
 Dex is an AI-powered relational engine that transforms unstructured voice notes into a structured, temporal CRM, ensuring you never fumble an icebreaker again.
 
-[Architecture](#architecture) · [UI Mockups](#)
+[Architecture](#architecture) · [App Preview](#app-preview)
 
 ## Overview
 
 Networking decays over time. Professionals and founders struggle to recall critical personal details—such as a connection's spouse, children, or current company—months or years after an initial meeting. Existing CRM tools require tedious manual data entry, which creates friction and reduces adoption. Dex solves this by combining a frictionless voice-capture interface with an LLM-driven extraction pipeline and passive background enrichment, surfacing the exact context you need 5 minutes before your next meeting.
+
+## App Preview
+
+<table>
+  <tr>
+    <td align="center"><strong>The Dashboard</strong></td>
+    <td align="center"><strong>The Network Graph</strong></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="assets/dashboard-preview.jpg" alt="Dex Dashboard with Semantic Search and Radar Feed" /></td>
+    <td width="50%"><img src="assets/network-preview.png" alt="Dex Synchronized Contact Network" /></td>
+  </tr>
+</table>
 
 ## Key Results
 
@@ -95,6 +108,9 @@ graph TD
 
 ```plaintext
 Dex-showcase/
+├── assets/
+│   ├── dashboard-preview.jpg
+│   └── network-preview.png
 ├── docs/
 │   ├── architecture-diagrams/
 │   ├── database-schema.md
