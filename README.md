@@ -13,11 +13,13 @@ Networking decays over time. Professionals and founders struggle to recall criti
 <table>
   <tr>
     <td align="center"><strong>The Dashboard</strong></td>
+    <td align="center"><strong>The Contact Slambook</strong></td>
     <td align="center"><strong>The Network Graph</strong></td>
   </tr>
   <tr>
-    <td width="50%"><img src="assets/dashboard-preview.jpg" alt="Dex Dashboard with Semantic Search and Radar Feed" /></td>
-    <td width="50%"><img src="assets/network-preview.png" alt="Dex Synchronized Contact Network" /></td>
+    <td width="33%"><img src="assets/dashboard-preview.jpg" alt="Dex Dashboard with Semantic Search and Radar Feed" /></td>
+    <td width="33%"><img src="assets/slambook-preview.png" alt="Dex Contact Slambook with Short-Term and Long-Term Memory" /></td>
+    <td width="33%"><img src="assets/network-preview.png" alt="Dex Synchronized Contact Network" /></td>
   </tr>
 </table>
 
@@ -29,7 +31,7 @@ Networking decays over time. Professionals and founders struggle to recall criti
 
 ## Key Features
 
-- **Voice-to-Graph Extraction**: A FastAPI backend leverages Whisper and GPT-4o-mini to parse unstructured audio, identify entities, and assign temporal tags before routing data into PostgreSQL.
+- **Voice-to-Graph Extraction**: A FastAPI backend leverages Whisper and Gemini to parse unstructured audio, identify entities, and assign temporal tags before routing data into PostgreSQL.
 - **The Briefing Card**: A pre-meeting UI summarizing the last interaction, highlighting immediate hooks (active projects), and displaying foundational facts ("slambook" data).
 - **Passive Career Radar**: Automated background enrichment pipeline to verify and update contact job titles and companies, generating organic nudges for outreach.
 - **The Answer Machine**: pgvector-powered search bar replacing the traditional alphabetical index with an intent-driven contact discovery engine.
@@ -49,7 +51,7 @@ graph TD
     subgraph Backend Orchestration [FastAPI Pipeline]
         Router[API Router]
         Audio[Audio Processor / Whisper]
-        LLM[GPT-4o-mini Extractor]
+        LLM[Gemini Extractor]
         Worker[Background Enrichment Cron]
     end
 
@@ -84,7 +86,7 @@ graph TD
 - **Frontend**: Swift, SwiftUI, AVFoundation
 - **Backend**: Python, FastAPI, SQLAlchemy
 - **Data & Storage**: PostgreSQL 16, pgvector
-- **AI/ML**: OpenAI Whisper (Transcription), GPT-4o-mini (Entity Extraction & Routing)
+- **AI/ML**: Google Gemini (Entity Extraction & Routing), Whisper (Transcription)
 
 ## How It Works
 
@@ -110,7 +112,8 @@ graph TD
 Dex-showcase/
 ├── assets/
 │   ├── dashboard-preview.jpg
-│   └── network-preview.png
+│   ├── network-preview.png
+│   └── slambook-preview.png
 ├── docs/
 │   ├── architecture-diagrams/
 │   ├── database-schema.md
