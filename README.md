@@ -1,131 +1,169 @@
-# Dex: The Intelligent Personal CRM
+# Dex | The AI Personal CRM
 
-Dex is an AI-powered relational engine that transforms unstructured voice notes into a structured, temporal CRM, ensuring you never fumble an icebreaker again.
+<p align="center">
+  <img src="public/dex-logo.png" alt="Dex App Icon" width="76" />
+</p>
 
-[Architecture](#architecture) · [App Preview](#app-preview)
+**Dex** is an intelligent iOS personal CRM and relationship memory engine that transforms 30-second unstructured voice notes into structured, searchable contact context.
+
+**[Live Product Page (`dex.saaryan.com`)](https://dex.saaryan.com)** · **[Product Preview](#app-preview)** · **[Architecture](#architecture)** · **[Local Development](#local-development)**
+
+---
 
 ## Overview
 
-Networking decays over time. Professionals and founders struggle to recall critical personal details—such as a connection's spouse, children, or current company—months or years after an initial meeting. Existing CRM tools require tedious manual data entry, which creates friction and reduces adoption. Dex solves this by combining a frictionless voice-capture interface with an LLM-driven extraction pipeline and passive background enrichment, surfacing the exact context you need 5 minutes before your next meeting.
+Meaningful relationships fade when context gets buried in scattered notes and manual CRM forms. Dex replaces data entry with natural speech: speak casually after a meeting or coffee, verify extracted facts with one tap, and walk into your next conversation with immediate context surfaced five minutes beforehand.
+
+This repository hosts the standalone Next.js product showcase at [`dex.saaryan.com`](https://dex.saaryan.com), built in monochrome Warm Cream and Obsidian to mirror the native iOS app alongside architectural starter scaffolds for the mobile client and extraction backend.
+
+---
 
 ## App Preview
 
+Real iOS Simulator captures dynamically adapt inside [`components/device-frame.tsx`](components/device-frame.tsx) as the site toggles between **Obsidian (Dark)** and **Warm Cream (Light)** modes.
+
 <table>
   <tr>
-    <td align="center"><strong>The Dashboard</strong></td>
-    <td align="center"><strong>The Contact Slambook</strong></td>
-    <td align="center"><strong>The Network Graph</strong></td>
+    <td align="center"><strong>Semantic Search</strong></td>
+    <td align="center"><strong>Live Voice Capture</strong></td>
+    <td align="center"><strong>One-Tap Verification</strong></td>
+    <td align="center"><strong>Contact Briefing</strong></td>
   </tr>
   <tr>
-    <td width="33%"><img src="assets/dashboard-preview.jpg" alt="Dex Dashboard with Semantic Search and Radar Feed" /></td>
-    <td width="33%"><img src="assets/slambook-preview.png" alt="Dex Contact Slambook with Short-Term and Long-Term Memory" /></td>
-    <td width="33%"><img src="assets/network-preview.png" alt="Dex Synchronized Contact Network" /></td>
+    <td width="25%"><img src="public/search-dark.png" alt="Dex iOS Semantic Search in Dark Mode" /></td>
+    <td width="25%"><img src="public/recording-dark.png" alt="Dex iOS Active Voice Recording in Dark Mode" /></td>
+    <td width="25%"><img src="public/hitl-dark.png" alt="Dex iOS Human-in-the-Loop Review Sheet in Dark Mode" /></td>
+    <td width="25%"><img src="public/briefing-dark.png" alt="Dex iOS Contact Briefing Card in Dark Mode" /></td>
+  </tr>
+  <tr>
+    <td width="25%"><img src="public/search-light.png" alt="Dex iOS Semantic Search in Light Mode" /></td>
+    <td width="25%"><img src="public/recording-light.png" alt="Dex iOS Active Voice Recording in Light Mode" /></td>
+    <td width="25%"><img src="public/hitl-light.png" alt="Dex iOS Human-in-the-Loop Review Sheet in Light Mode" /></td>
+    <td width="25%"><img src="public/briefing-light.png" alt="Dex iOS Contact Briefing Card in Light Mode" /></td>
   </tr>
 </table>
 
-## Key Results
+---
 
-- **Frictionless Capture**: Reduced post-meeting data entry from minutes of manual typing to a 30-second unstructured voice dump, achieving high-fidelity structured data extraction.
-- **Semantic Retrieval**: Enabled natural language queries across the contact graph (e.g., "Who do I know in aviation logistics?"), utilizing vector embeddings for intent-based routing.
-- **Dynamic Context Surfacing**: Structured relationship data hierarchically based on temporal relevance (Short, Medium, and Long-Term horizons) to prevent information overload during pre-meeting prep.
+## Product Pillars
 
-## Key Features
+- **Voice to CRM Capture**: Open the thumb-zone voice sheet, speak naturally about anyone, and convert unstructured audio into clean structured contact updates in under 30 seconds.
+- **Human-in-the-Loop Review**: Automatic contact matching prevents duplicates and presents every extracted fact on a confirmation sheet before anything saves.
+- **Temporal Memory Graph**: Organizes relationship details by time horizon (`Top of Mind`, `Context`, `Sparks`, and `Background`) so immediate priorities always sit above foundational bio context.
+- **Offline-First Reliability**: Voice recordings and local relationship memory remain accessible on-device between flights or weak signal and sync automatically when online.
+- **Semantic Recall**: Ask in plain English by company, topic, or half-remembered conversation detail instead of hunting through alphabetical folders.
 
-- **Voice-to-Graph Extraction**: A FastAPI backend leverages Whisper and Gemini to parse unstructured audio, identify entities, and assign temporal tags before routing data into PostgreSQL.
-- **The Briefing Card**: A pre-meeting UI summarizing the last interaction, highlighting immediate hooks (active projects), and displaying foundational facts ("slambook" data).
-- **Passive Career Radar**: Automated background enrichment pipeline to verify and update contact job titles and companies, generating organic nudges for outreach.
-- **The Answer Machine**: pgvector-powered search bar replacing the traditional alphabetical index with an intent-driven contact discovery engine.
+---
+
+## Showcase Website Stack
+
+- **Framework**: Next.js 16 (App Router, `output: "export"` static generation) + React 19 + TypeScript 5
+- **Styling & Theme**: Tailwind CSS v4 with a custom Warm Cream (`#F7F6F2`) / Obsidian (`#0A0A0A`) palette synced via `next-themes`
+- **Motion & Interaction**: Framer Motion scroll/reveal primitives, custom magnetic cursor & link physics, and theme-aware iPhone hardware device frames
+- **SEO & Metadata**: Full Open Graph and Twitter Card metadata, Schema.org `SoftwareApplication` (`BusinessApplication`, `iOS`) JSON-LD in [`app/layout.tsx`](app/layout.tsx), plus static [`app/sitemap.ts`](app/sitemap.ts) and [`app/robots.ts`](app/robots.ts)
+- **Deployment**: Static export configured for Vercel with strict security headers in [`vercel.json`](vercel.json)
+
+---
 
 ## Architecture
 
-The system decouples a native iOS frontend from a heavy Python orchestration layer, allowing for rapid mobile UI iteration while centralizing the LLM and scraping logic.
+Dex decouples a native SwiftUI iOS client from a Python/FastAPI extraction and semantic indexing pipeline.
 
 ```mermaid
 graph TD
-    subgraph iOS Client [Native iOS App - Swift/SwiftUI]
-        UI[Frictionless UI / Mic Button]
-        BC[Briefing Card View]
-        SM[Semantic Search Bar]
+    subgraph iOS["Native iOS App (Swift / SwiftUI / SwiftData)"]
+        UI[Voice Capture Sheet]
+        HITL[One-Tap Review Sheet]
+        BC[Pre-Meeting Briefing Card]
+        SM[Semantic Search]
     end
 
-    subgraph Backend Orchestration [FastAPI Pipeline]
+    subgraph Backend["FastAPI Orchestration"]
         Router[API Router]
-        Audio[Audio Processor / Whisper]
-        LLM[Gemini Extractor]
-        Worker[Background Enrichment Cron]
+        Audio[Transcription Pipeline]
+        LLM[Gemini Structured Extractor]
     end
 
-    subgraph Data Layer [PostgreSQL 16]
+    subgraph Data["PostgreSQL + pgvector"]
         Contacts[(Contacts)]
-        Details[(Personal Details / Time Horizon)]
-        Vector[(pgvector Embeddings)]
+        Details[(Temporal Memory Buckets)]
+        Vector[(Profile Embeddings)]
     end
 
     UI -- Audio Payload --> Router
     Router --> Audio
     Audio -- Transcript --> LLM
-    LLM -- Structured JSON --> Contacts
-    LLM -- Slambook Facts --> Details
-    LLM -- Profile Embeddings --> Vector
-    SM -- "Who works in Big Tech?" --> Router
+    LLM -- Extracted Facts --> HITL
+    HITL -- Approved Update --> Contacts
+    HITL --> Details
+    LLM -- Profile Vectors --> Vector
+    SM -- Natural Language Query --> Router
     Router -- Cosine Similarity --> Vector
-    Vector -- Context --> BC
-    Worker -. Checks Job Status .-> Contacts
+    Vector -- Ranked Matches --> BC
 ```
-
-## Design Decisions
-
-| Decision | Rationale | Trade-off |
-| :--- | :--- | :--- |
-| **SwiftUI Native** | Unlocks thumb-zone ergonomics, native iOS Dictation/Mic APIs, and Lock Screen widgets for zero-friction capture. | Higher learning curve compared to React Native; locks MVP to Apple ecosystem. |
-| **FastAPI Backend** | Python ecosystem provides the best tooling for LLM orchestration, async tasks, and data engineering. | Requires managing a separate deployed backend rather than relying purely on serverless/BaaS. |
-| **pgvector** | Keeps relational data (contacts) and semantic embeddings (search) in the same database, simplifying transactions. | Slightly slower search at massive scale compared to a dedicated vector DB like Pinecone, but perfectly sufficient for a personal CRM. |
-
-## Tech Stack
-
-- **Frontend**: Swift, SwiftUI, AVFoundation
-- **Backend**: Python, FastAPI, SQLAlchemy
-- **Data & Storage**: PostgreSQL 16, pgvector
-- **AI/ML**: Google Gemini (Entity Extraction & Routing), Whisper (Transcription)
-
-## How It Works
-
-1. **Capture**: The user taps a single button and records a voice memo summarizing a meeting.
-2. **Extraction**: The backend transcribes the audio and extracts categorized facts (e.g., Category: Family, Value: Anushka, Time Horizon: Long-term).
-3. **Storage**: Data is normalized into relational tables, and a synthesized profile embedding is updated in pgvector.
-4. **Retrieval**: When opening a contact, the API serves a prioritized briefing card. When searching via natural language, the API routes the query through vector similarity search.
-
-## Getting Started
 
 > [!NOTE]
-> This is a showcase repository. The proprietary LLM prompts, active backend services, and production deployment configurations are maintained in a private monorepo.
+> Production prompts, active iOS app sources, and backend deployment configuration live in private repositories. `frontend-scaffold/` and `backend-scaffold/` in this repo contain structural reference stubs alongside the live marketing showcase application.
 
-### Prerequisites
+---
 
-- iOS 17.0+ (Simulator or Physical Device)
-- Python 3.11+
-- PostgreSQL 16 with pgvector extension installed
-
-### Project Structure
+## Project Structure
 
 ```plaintext
-Dex-showcase/
-├── assets/
-│   ├── dashboard-preview.jpg
-│   ├── network-preview.png
-│   └── slambook-preview.png
-├── docs/
-│   ├── architecture-diagrams/
-│   ├── database-schema.md
-│   └── api-contracts.md
-├── frontend-scaffold/
-│   └── App/
-│       └── DexApp.swift (Structural skeleton)
+dex-showcase/
+├── app/
+│   ├── globals.css                # Monochrome Warm Cream & Obsidian design tokens
+│   ├── layout.tsx                 # Global Metadata, JSON-LD schema, theme & chrome shell
+│   ├── page.tsx                   # Static landing entrypoint
+│   ├── robots.ts                  # Robots.txt route for static export
+│   └── sitemap.ts                 # Sitemap XML generator for https://dex.saaryan.com/
+├── components/
+│   ├── cursor.tsx                 # Desktop custom pointer indicator
+│   ├── device-frame.tsx           # Titanium iPhone mockup synced to Light/Dark themes
+│   ├── dex-landing.tsx            # Hero preview switcher, capture flow, briefings & security
+│   ├── footer.tsx                 # Minimal footer with attribution and social links
+│   ├── magnetic-link.tsx          # Subtle pointer-following CTA wrapper
+│   ├── navbar.tsx                 # Cross-property header (AS. / Dex) & anchor menu overlay
+│   ├── page-transition.tsx        # Reduced-motion-safe page reveal wrapper
+│   ├── reveal-text.tsx            # Masked word-by-word display headline motion
+│   ├── theme-provider.tsx         # next-themes configuration
+│   └── theme-toggle.tsx           # Warm Cream / Obsidian toggle control
+├── lib/
+│   └── use-hydrated.ts            # SSR-safe hydration hook via useSyncExternalStore
+├── public/
+│   ├── *-dark.png / *-light.png   # Real iOS Simulator captures for Light & Dark modes
+│   ├── dex-logo.png               # App wordmark badge
+│   ├── grid.svg                   # Subtle menu background texture
+│   └── images/dex-icon-*.png      # Adaptive light/dark browser icons
 ├── backend-scaffold/
-│   └── main.py (API routing skeleton)
-└── README.md
+│   └── main.py                    # FastAPI structural route outline
+├── frontend-scaffold/
+│   └── App/DexApp.swift           # SwiftUI starter reference
+├── instrumentation-client.ts      # Early client bootstrap & extension error guard
+├── next.config.ts                 # Static export configuration
+├── package.json
+└── vercel.json                    # Security headers
 ```
 
-## Status and Contributions
+---
 
-This is an active development project designed for personal use and portfolio demonstration. Public contributions are not currently accepted.
+## Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run the Next.js development server (http://localhost:3000)
+npm run dev
+
+# Verify types, lint rules, and static production export (outputs to ./out)
+npx tsc --noEmit
+npm run lint
+npm run build
+```
+
+---
+
+## Author
+
+Built by [Aaryan Sharma](https://www.saaryan.com) ([GitHub](https://github.com/sharmaaaryan4012) · [LinkedIn](https://www.linkedin.com/in/sharmaaaryan)). Public code contributions are not currently accepted.
