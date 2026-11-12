@@ -133,8 +133,8 @@ dex-showcase/
 ├── public/
 │   ├── *-dark.png / *-light.png   # Real iOS Simulator captures for Light & Dark modes
 │   ├── dex-logo.png               # App wordmark badge
+│   ├── dex-preview.png            # 1200x630 Open Graph / Twitter preview card
 │   ├── grid.svg                   # Subtle menu background texture
-│   ├── og-image.jpg               # 1200x630 Open Graph / Twitter preview card
 │   └── images/dex-icon-*.png      # Adaptive light/dark browser icons
 ├── backend-scaffold/
 │   └── main.py                    # FastAPI structural route outline

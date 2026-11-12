@@ -68,7 +68,7 @@ export function DeviceFrame({
               width={1206}
               height={2622}
               unoptimized
-              loading={priority ? "eager" : "lazy"}
+              fetchPriority={priority ? "high" : "auto"}
               className="block h-full w-full object-cover transition-opacity duration-200"
             />
 
