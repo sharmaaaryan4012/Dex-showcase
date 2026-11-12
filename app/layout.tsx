@@ -34,6 +34,7 @@ const softwareSchema = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "iOS",
   url: "https://dex.saaryan.com/",
+  image: "https://dex.saaryan.com/og-image.jpg",
   screenshot: [
     "https://dex.saaryan.com/search-dark.png",
     "https://dex.saaryan.com/recording-dark.png",
@@ -116,10 +117,10 @@ export const metadata: Metadata = {
     siteName: "Dex",
     images: [
       {
-        url: "/search-dark.png",
-        width: 1206,
-        height: 2622,
-        alt: "Dex AI Personal CRM semantic search interface on iOS",
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Dex | The AI Personal CRM",
       },
     ],
   },
@@ -128,7 +129,7 @@ export const metadata: Metadata = {
     title: "Dex | The AI Personal CRM",
     description:
       "An intelligent CRM and personal CRM for iPhone. Turn 30-second AI voice notes into searchable relationship memory.",
-    images: ["/search-dark.png"],
+    images: ["/og-image.jpg"],
   },
   icons: {
     icon: [
