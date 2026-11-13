@@ -13,7 +13,7 @@ const navItems = [
   { name: "Overview", path: "#overview" },
   { name: "Voice Capture", path: "#capture" },
   { name: "Knowledge Graph", path: "#memory" },
-  { name: "Security", path: "#security" },
+  { name: "Architecture & Privacy", path: "#security" },
 ];
 
 export default function Navbar() {
@@ -64,7 +64,7 @@ export default function Navbar() {
                   height={64}
                   loading="eager"
                   unoptimized
-                  className="h-7 w-auto rounded-md ring-1 ring-black/10 dark:ring-white/15 shadow-xs"
+                  className="h-6 w-auto rounded-md"
                 />
               </Link>
             </div>

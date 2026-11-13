@@ -11,6 +11,7 @@ export interface DeviceFrameProps {
   alt: string;
   priority?: boolean;
   className?: string;
+  children?: React.ReactNode;
 }
 
 export function DeviceFrame({
@@ -19,6 +20,7 @@ export function DeviceFrame({
   alt,
   priority = false,
   className = "",
+  children,
 }: DeviceFrameProps) {
   const { resolvedTheme } = useTheme();
   const mounted = useHydrated();
@@ -62,15 +64,19 @@ export function DeviceFrame({
         <div className="relative rounded-[13.4%/6.2%] bg-[#070708] p-[2.1%] ring-1 ring-black/60 dark:ring-white/[0.06]">
           {/* Active Retina viewport matching exact 1206x2622 iPhone aspect ratio */}
           <div className="relative aspect-[1206/2622] w-full overflow-hidden rounded-[12.2%/5.65%] bg-background">
-            <Image
-              src={activeSrc}
-              alt={alt}
-              width={1206}
-              height={2622}
-              unoptimized
-              fetchPriority={priority ? "high" : "auto"}
-              className="block h-full w-full object-cover transition-opacity duration-200"
-            />
+            {children ? (
+              children
+            ) : (
+              <Image
+                src={activeSrc}
+                alt={alt}
+                width={1206}
+                height={2622}
+                unoptimized
+                fetchPriority={priority ? "high" : "auto"}
+                className="block h-full w-full object-cover transition-opacity duration-200"
+              />
+            )}
 
             {/* Measured Dynamic Island hardware cutout aligned with iOS 9:41 safe region */}
             <div

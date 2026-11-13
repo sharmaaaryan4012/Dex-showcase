@@ -1,10 +1,10 @@
-# Dex | The AI Personal CRM
+# Dex | The External Brain for Your Network
 
 <p align="center">
   <img src="public/dex-logo.png" alt="Dex App Icon" width="76" />
 </p>
 
-**Dex** is an intelligent iOS personal CRM and relationship memory engine that transforms 30-second unstructured voice notes into structured, searchable contact context.
+**Dex** is the external brain for your network and personal relationship memory engine that transforms 30-second unstructured voice notes into structured, searchable contact context.
 
 **[Live Product Page (`dex.saaryan.com`)](https://dex.saaryan.com)** · **[Product Preview](#app-preview)** · **[Architecture](#architecture)** · **[Local Development](#local-development)**
 
@@ -12,7 +12,7 @@
 
 ## Overview
 
-Meaningful relationships fade when context gets buried in scattered notes and manual CRM forms. Dex replaces data entry with natural speech: speak casually after a meeting or coffee, verify extracted facts with one tap, and walk into your next conversation with immediate context surfaced five minutes beforehand.
+Meaningful relationships fade when context gets buried in scattered notes and manual database forms. Dex replaces data entry with natural speech: speak casually after a meeting or coffee, verify extracted facts with one tap, and walk into your next conversation with immediate context surfaced five minutes beforehand.
 
 This repository hosts the standalone Next.js product showcase at [`dex.saaryan.com`](https://dex.saaryan.com), built in monochrome Warm Cream and Obsidian to mirror the native iOS app alongside architectural starter scaffolds for the mobile client and extraction backend.
 
@@ -47,7 +47,7 @@ Real iOS Simulator captures dynamically adapt inside [`components/device-frame.t
 
 ## Product Pillars
 
-- **Voice to CRM Capture**: Open the thumb-zone voice sheet, speak naturally about anyone, and convert unstructured audio into clean structured contact updates in under 30 seconds.
+- **Voice to Memory Capture**: Open the thumb-zone voice sheet, speak naturally about anyone, and convert unstructured audio into clean structured contact updates in under 30 seconds.
 - **Human-in-the-Loop Review**: Automatic contact matching prevents duplicates and presents every extracted fact on a confirmation sheet before anything saves.
 - **Temporal Memory Graph**: Organizes relationship details by time horizon (`Top of Mind`, `Context`, `Sparks`, and `Background`) so immediate priorities always sit above foundational bio context.
 - **Offline-First Reliability**: Voice recordings and local relationship memory remain accessible on-device between flights or weak signal and sync automatically when online.
